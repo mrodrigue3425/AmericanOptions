@@ -1,6 +1,6 @@
 #include <iostream>
 #include "explicit_scheme.h"
-// #include "implicit_scheme.h"
+#include "implicit_scheme.h"
 // #include "crank_nicholson_scheme.h"
 
 int main()
@@ -32,7 +32,7 @@ int main()
     // std::cout << "Enter risk-free rate: " << endl;
     // std::cin >> r;
 
-    scheme = 1;
+    scheme = 2;
     cp = 1;
     S_0 = 100;
     K = 100;
@@ -46,9 +46,9 @@ int main()
     case 1:
         option_price = explicit_space::explicit_scheme(S_0, K, T, sigma, r, D, cp);
         break;
-    // case 2:
-    //     implicit_scheme();
-    //     break;
+    case 2:
+        option_price = implicit_space::implicit_scheme(S_0, K, T, sigma, r, D, cp);
+        break;
     // case 4:
     //     CN_scheme();
     //     break;
