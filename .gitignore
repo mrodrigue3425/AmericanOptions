@@ -1,0 +1,9 @@
+.env
+*.egg
+*.egg-info
+/build/
+.eggs
+*.exe
+*.out
+fdm
+tests_exec

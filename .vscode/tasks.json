@@ -1,0 +1,110 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compile C++",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-std=c++17",
+                "-Iinclude",
+                "-g",
+                "-O0",
+                "app/*.cpp",
+                "src/*.cpp",
+                "-o",
+                "fdm"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "Compile tests C++",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-std=c++17",
+                "-Iinclude",
+                "tests/*.cpp",
+                "src/*cpp",
+                "-lgtest",
+                "-lgtest_main",
+                "-pthread",
+                "-o",
+                "tests_exec"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "Run C++",
+            "type": "shell",
+            "command": "./fdm",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run tests C++",
+            "type": "shell",
+            "command": "./tests_exec",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Clean C++ module",
+            "type": "shell",
+            "command": "rm -f *.so && rm -rf build",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "label": "Run tests",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-c",
+                "g++ -std=c++17 tests/test_FDM_Black_Scholes.cpp price_FDM_Black_Scholes.cpp -o tests/test_FDM_Black_Scholes -lgtest -lgtest_main -pthread && .tests/test_FDM_Black_Scholes"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            },
+            "problemMatcher": [],
+            "detail": "Builds and runs all GoogleTest-based C++ tests in tests folder."
+        }
+    ]
+}
