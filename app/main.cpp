@@ -1,6 +1,7 @@
 #include <iostream>
 #include "explicit_scheme.h"
 #include "implicit_scheme.h"
+#include "cn_scheme.h"
 // #include "crank_nicholson_scheme.h"
 
 int main()
@@ -32,7 +33,7 @@ int main()
     // std::cout << "Enter risk-free rate: " << endl;
     // std::cin >> r;
 
-    scheme = 2;
+    scheme = 3;
     cp = 1;
     S_0 = 100;
     K = 100;
@@ -49,16 +50,16 @@ int main()
     case 2:
         option_price = implicit_space::implicit_scheme(S_0, K, T, sigma, r, D, cp);
         break;
-    // case 4:
-    //     CN_scheme();
-    //     break;
+    case 3:
+        option_price = cn_space::cn_scheme(S_0, K, T, sigma, r, D, cp);
+        break;
     default:
         std::cout << "Invalid input.";
         return -1;
         break;
     }
 
-    std::cout << "The " << (cp == 1 ? "Call " : "Put ")
+    std::cout << "The " << (cp == 1 ? "call " : "put ")
               << "price is " << option_price << "." << std::endl
               << std::endl;
     return 0;
