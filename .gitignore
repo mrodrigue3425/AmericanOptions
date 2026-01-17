@@ -7,3 +7,4 @@
 *.out
 fdm
 tests_exec
+FDM_Black_Scholes.cpp

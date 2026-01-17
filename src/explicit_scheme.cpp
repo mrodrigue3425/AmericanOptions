@@ -27,8 +27,9 @@ namespace explicit_space
         }
         else
         {
-            std::cout << "The selected scheme is unstable under the unput parameters."
-                      << "Please try a different scheme of a different set of parameters." << std::endl;
+            std::cout << "The selected scheme is unstable under the input parameters. "
+                      << "Please try a different scheme or a different set of parameters." << std::endl
+                      << std::endl;
             return -1;
         }
 
