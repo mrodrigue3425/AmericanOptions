@@ -6,7 +6,7 @@
 
 int main()
 {
-
+    int cust_default; // custom or default model parameters
     int scheme;
     int cp;      // put or call
     float S_0;   // Today's stock price
@@ -18,49 +18,71 @@ int main()
 
     double option_price; // output option price
 
-    // std::cout << "Enter 1 for explicit scheme, 2 for American explicit scheme, 3 for implicit scheme, 4 for C-N scheme, or 5 for C-N scheme theta" << std::endl;
-    // std::cin >> scheme;
-    // std::cout << "Enter 1 for call, enter 2 for put: " << endl;
-    // std::cin >> cp;
-    // std::cout << "Enter today's stock price: " << endl;
-    // std::cin >> S0;
-    // std::cout << "Enter strike price: " << endl;
-    // std::cin >> E;
-    // std::cout << "Enter time to expiry: " << endl;
-    // std::cin >> T;
-    // std::cout << "Enter volatility: " << endl;
-    // std::cin >> sigma;
-    // std::cout << "Enter risk-free rate: " << endl;
-    // std::cin >> r;
+    std::cout << "Enter 0 for custom parameters, or 1 for default parameters: " << std::endl;
+    std::cin >> cust_default;
 
-    scheme = 3;
-    cp = 1;
-    S_0 = 100;
-    K = 100;
-    T = 1;
-    sigma = 0.2;
-    r = 0.05;
-    D = 0;
-
-    switch (scheme)
+    switch (cust_default)
     {
+    case 0:
+        std::cout << "Enter 1 for explicit scheme, 2 for implicit scheme, 3 for C-N scheme." << std::endl;
+        std::cin >> scheme;
+        std::cout << "Enter 1 for call, enter 2 for put: " << std::endl;
+        std::cin >> cp;
+        std::cout << "Enter today's stock price: " << std::endl;
+        std::cin >> S_0;
+        std::cout << "Enter strike price: " << std::endl;
+        std::cin >> K;
+        std::cout << "Enter time to expiry: " << std::endl;
+        std::cin >> T;
+        std::cout << "Enter volatility: " << std::endl;
+        std::cin >> sigma;
+        std::cout << "Enter risk-free rate: " << std::endl;
+        std::cin >> r;
+
+        switch (scheme)
+        {
+        case 1:
+            option_price = explicit_space::explicit_scheme(S_0, K, T, sigma, r, D, cp);
+            break;
+        case 2:
+            option_price = implicit_space::implicit_scheme(S_0, K, T, sigma, r, D, cp);
+            break;
+        case 3:
+            option_price = cn_space::cn_scheme(S_0, K, T, sigma, r, D, cp);
+            break;
+        default:
+            std::cout << "Invalid input." << std::endl
+                      << std::endl;
+            return -1;
+            break;
+        }
+        break;
     case 1:
-        option_price = explicit_space::explicit_scheme(S_0, K, T, sigma, r, D, cp);
-        break;
-    case 2:
-        option_price = implicit_space::implicit_scheme(S_0, K, T, sigma, r, D, cp);
-        break;
-    case 3:
+        cp = 1;
+        S_0 = 100;
+        K = 100;
+        T = 1;
+        sigma = 0.2;
+        r = 0.05;
+        D = 0;
         option_price = cn_space::cn_scheme(S_0, K, T, sigma, r, D, cp);
         break;
     default:
-        std::cout << "Invalid input.";
-        return -1;
+        std::cout << "Invalid input." << std::endl
+                  << std::endl;
+        return 0;
         break;
     }
 
-    std::cout << "The " << (cp == 1 ? "call " : "put ")
-              << "price is " << option_price << "." << std::endl
-              << std::endl;
-    return 0;
+    if (option_price == -1)
+    {
+        return 0;
+    }
+    else
+    {
+        std::cout << "The " << (cp == 1 ? "call " : "put ")
+                  << "price is " << option_price << "." << std::endl
+                  << std::endl;
+        return 0;
+    }
 }
